@@ -20,11 +20,10 @@ app.use("/api", messageRoute);
 app.use("/book", bookRoute);
 app.use("/user", userRoute);
 
-// DB
 mongoose
-  .connect(process.env.MongoDBURI)
-  .then(() => console.log("✅ Connected to MongoDB"))
-  .catch((err) => console.error("❌ MongoDB Error", err));
+  .connect(process.env.MONGO_URI)
+  .then(() => console.log("✅ MongoDB Connected"))
+  .catch((err) => console.log("❌ MongoDB Error", err));
 
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);

@@ -1,17 +1,9 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useState } from "react";
 
-const CartContext = createContext();
+const CartContext = createContext(undefined);
 
-export const CartProvider = ({ children }) => {
-  const [cart, setCart] = useState(() => {
-    const saved = localStorage.getItem("cart");
-    return saved ? JSON.parse(saved) : [];
-  });
-
-  // 🔁 Sync with localStorage
-  useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cart));
-  }, [cart]);
+export function CartProvider({ children }) {
+  const [cart, setCart] = useState([]);
 
   const addToCart = (book) => {
     setCart((prev) => {
@@ -30,16 +22,15 @@ export const CartProvider = ({ children }) => {
   };
 
   const decreaseQuantity = (id) => {
-  setCart((prev) =>
-    prev
-      .map((item) =>
-        item._id === id
-          ? { ...item, quantity: item.quantity - 1 }
-          : item
-      )
-      .filter((item) => item.quantity > 0)
-  );
-};
+    setCart((prev) =>
+      prev
+        .map((i) =>
+          i._id === id ? { ...i, quantity: i.quantity - 1 } : i
+        )
+        .filter((i) => i.quantity > 0)
+    );
+  };
+
   return (
     <CartContext.Provider
       value={{ cart, addToCart, removeFromCart, decreaseQuantity }}
@@ -47,6 +38,12 @@ export const CartProvider = ({ children }) => {
       {children}
     </CartContext.Provider>
   );
-};
+}
 
-export const useCart = () => useContext(CartContext);
+export const useCart = () => {
+  const ctx = useContext(CartContext);
+  if (!ctx) {
+    throw new Error("useCart must be used inside CartProvider");
+  }
+  return ctx;
+};

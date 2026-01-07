@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
+
 import MainLayout from "./layouts/MainLayout";
 import AuthLayout from "./layouts/AuthLayout";
+
 import Home from "./home/Home";
 import Courses from "./courses/Courses";
 import Login from "./components/Login";
@@ -9,38 +11,35 @@ import Signup from "./components/Signup";
 import About from "./components/About";
 import Contact from "./pages/Contact";
 import Cart from "./pages/Cart";
+
 import { useAuth } from "./context/AuthProvider";
 import { Toaster } from "react-hot-toast";
 
 function App() {
   const [authUser] = useAuth();
-
-  // 🌙 Global Theme State
   const [theme, setTheme] = useState(
     localStorage.getItem("theme") || "light"
   );
 
-  // 🌗 Apply theme to whole app
   useEffect(() => {
     const root = document.documentElement;
-    if (theme === "dark") {
-      root.classList.add("dark");
-    } else {
-      root.classList.remove("dark");
-    }
+    theme === "dark"
+      ? root.classList.add("dark")
+      : root.classList.remove("dark");
+
     localStorage.setItem("theme", theme);
   }, [theme]);
 
   return (
-    <div className="bg-white dark:bg-slate-900 text-black dark:text-white min-h-screen">
+    <div className="bg-white dark:bg-slate-900 min-h-screen">
       <Routes>
-        {/* 🔐 Auth pages */}
+        {/* Auth */}
         <Route element={<AuthLayout />}>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
         </Route>
 
-        {/* 🌍 Main site */}
+        {/* Main */}
         <Route element={<MainLayout theme={theme} setTheme={setTheme} />}>
           <Route path="/" element={<Home />} />
           <Route

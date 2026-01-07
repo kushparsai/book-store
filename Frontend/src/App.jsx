@@ -8,7 +8,7 @@ import Login from "./components/Login";
 import Signup from "./components/Signup";
 import About from "./components/About";
 import Contact from "./pages/Contact";
-import Cart from "./context/Cart";
+import Cart from "./pages/Cart";
 import { useAuth } from "./context/AuthProvider";
 import { Toaster } from "react-hot-toast";
 

@@ -21,9 +21,13 @@ app.use("/book", bookRoute);
 app.use("/user", userRoute);
 app.use(
   cors({
-    origin: "*",
+    origin: [
+      "https://kushparsai.github.io",
+      "http://localhost:5173"
+    ],
     methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: false,
   })
 );
 

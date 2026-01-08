@@ -119,7 +119,7 @@ function Course() {
   return (
     <div className="max-w-screen-2xl container mx-auto md:px-20 px-4">
       <div className="mt-28 items-center justify-center text-center">
-        <h1 className="text-2xl md:text-4xl font-semibold">
+        <h1 className="text-2xl md:text-4xl font-semibold text-black dark:text-white">
           Explore Our Popular{" "}
           <span className="text-pink-500">Courses & Books</span>
         </h1>

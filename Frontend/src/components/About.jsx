@@ -32,9 +32,9 @@ function About() {
         >
           Welcome to{" "}
           <span className="font-semibold text-blue-600 dark:text-pink-400">
-            BookVillage
+            StudyStack
           </span>{" "}
-          — your one-stop digital book village for quality education,
+          — your one-stop digital study stack for quality education,
           inspiration, and knowledge.
         </p>
       </div>
@@ -61,7 +61,7 @@ function About() {
           >
             At{" "}
             <span className="font-semibold text-blue-600 dark:text-pink-400">
-              BookVillage
+             StudyStack
             </span>
             , we believe that books have the power to change lives. Our mission
             is to make learning accessible, engaging, and affordable for
@@ -103,7 +103,6 @@ function About() {
         </div>
       </div>
 
-      {/* 🔹 Quote Section */}
       <div className="text-center mt-12">
         <h2
           className="
@@ -124,7 +123,7 @@ function About() {
         >
           Join our growing community of learners today and discover how reading
           can empower your future. Whether you're a student, teacher, or curious
-          explorer — BookVillage has something for everyone.
+          explorer — StudyStack has something for everyone.
         </p>
       </div>
 

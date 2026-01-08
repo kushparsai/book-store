@@ -7,9 +7,9 @@ function Footer() {
     <footer className="bg-gray-100 dark:bg-slate-900 dark:text-white py-10 mt-16 border-t border-gray-200 dark:border-slate-700">
       <div className="max-w-screen-xl mx-auto grid md:grid-cols-3 gap-8 px-6">
         <div>
-          <h2 className="text-xl font-semibold mb-3">About Book Village</h2>
+          <h2 className="text-xl font-semibold mb-3">About StudyStack</h2>
           <p className="text-gray-600 dark:text-gray-300 text-sm">
-            BookVillage is your one-stop destination for all your learning needs.
+            StudyStack is your one-stop destination for all your learning needs.
             Explore books, courses, and resources to boost your knowledge.
           </p>
           <Link
@@ -23,7 +23,7 @@ function Footer() {
           <h2 className="text-xl font-semibold mb-3">Contact Us</h2>
           <ul className="space-y-2 text-gray-600 dark:text-gray-300">
             <li className="flex items-center gap-2">
-              <Mail className="w-4 h-4" /> support@bookvillage.com
+              <Mail className="w-4 h-4" /> support@StudyStack.com
             </li>
             <li className="flex items-center gap-2">
               <Phone className="w-4 h-4" /> +91 98765 43210
@@ -54,7 +54,7 @@ function Footer() {
       </div>
 
       <div className="text-center mt-10 text-sm text-gray-500 dark:text-gray-400 border-t border-gray-300 dark:border-gray-700 pt-5">
-        © {new Date().getFullYear()} BookVillage. All rights reserved.
+        © {new Date().getFullYear()} StudyStack. All rights reserved.
       </div>
     </footer>
   );

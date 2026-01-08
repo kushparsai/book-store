@@ -55,15 +55,14 @@ function Navbar() {
       >
         <div className="max-w-screen-2xl mx-auto px-4 md:px-16 flex items-center justify-between h-20">
 
-          {/* 🔰 Logo */}
           <Link to="/" className="flex items-center gap-2">
             <img
               src={logo}
-              alt="BookVillage"
+              alt="StudyStack"
               className="w-12 h-12 rounded-full object-contain"
             />
             <span className="font-bold text-xl text-black dark:text-white">
-              BookVillage
+              StudyStack
             </span>
           </Link>
 
@@ -99,7 +98,6 @@ function Navbar() {
               )}
             </Link>
 
-            {/* 🌙 Theme toggle (desktop) */}
             <button
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
               className=" text-lg"
@@ -107,7 +105,6 @@ function Navbar() {
               {theme === "dark" ? "☀️" : "🌙"}
             </button>
 
-            {/* 🔐 Auth */}
             {authUser ? (
               <Logout />
             ) : (
@@ -119,7 +116,6 @@ function Navbar() {
               </Link>
             )}
 
-            {/* 📱 Mobile Menu Button */}
             <button
               className="md:hidden text-black dark:text-white"
               onClick={() => setMenuOpen(!menuOpen)}
@@ -129,7 +125,6 @@ function Navbar() {
           </div>
         </div>
 
-        {/* 📱 Mobile Menu (LINE BY LINE) */}
         {menuOpen && (
           <div className="md:hidden bg-white dark:bg-slate-800 px-6 py-6 space-y-4 text-lg font-medium">
             <Link

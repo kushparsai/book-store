@@ -1,8 +1,8 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import axios from "axios";
 import toast from "react-hot-toast";
+import api from "../api/axios"; // ✅ NEW
 import bgImage from "/image25.jpg";
 
 function Login() {
@@ -11,7 +11,7 @@ function Login() {
 
   const onSubmit = async (data) => {
     try {
-      const res = await axios.post("http://localhost:4001/user/login", data);
+      const res = await api.post("/user/login", data); // ✅ FIXED
       localStorage.setItem("Users", JSON.stringify(res.data.user));
       toast.success("Login successful");
       navigate("/");
@@ -25,8 +25,7 @@ function Login() {
       className="min-h-screen flex items-center justify-center bg-cover bg-center"
       style={{ backgroundImage: `url(${bgImage})` }}
     >
-      <div className="bg-white rounded-xl p-8 w-full max-w-md mx-auto shadow-xl">
-
+      <div className="bg-white rounded-xl p-8 w-full max-w-md shadow-xl">
         <h2 className="text-2xl font-bold text-center mb-6 text-pink-600">
           Login
         </h2>
@@ -35,28 +34,25 @@ function Login() {
           <input
             type="email"
             placeholder="Email"
-            className="w-full px-4 py-3 bg-blue-50 rounded-md outline-none focus:ring-2 focus:ring-pink-400"
+            className="w-full px-4 py-3 bg-blue-50 rounded-md"
             {...register("email", { required: true })}
           />
 
           <input
             type="password"
             placeholder="Password"
-            className="w-full px-4 py-3 bg-blue-50 rounded-md outline-none focus:ring-2 focus:ring-pink-400"
+            className="w-full px-4 py-3 bg-blue-50 rounded-md"
             {...register("password", { required: true })}
           />
 
-          <button
-            type="submit"
-            className="w-full bg-pink-500 text-white py-3 rounded-lg font-semibold hover:bg-pink-600 transition"
-          >
+          <button className="w-full bg-pink-500 text-white py-3 rounded-lg">
             Login
           </button>
         </form>
 
         <p className="text-center mt-4 text-sm">
-          <span className="text-gray-600">Not registered?</span>{" "}
-          <Link to="/signup" className="text-blue-600 font-medium hover:underline">
+          Not registered?{" "}
+          <Link to="/signup" className="text-blue-600 font-medium">
             Signup
           </Link>
         </p>

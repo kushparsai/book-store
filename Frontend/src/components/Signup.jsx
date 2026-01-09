@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import api from "../api/axios"; // ✅ NEW
+import api from "../api/axios";
 import bgImage from "/image25.jpg";
 
 function Signup() {
@@ -11,11 +11,16 @@ function Signup() {
 
   const onSubmit = async (data) => {
     try {
-      await api.post("/user/signup", data); // ✅ FIXED
-      toast.success("Signup successful");
+      await api.post("/user/signup", data);
+
+      toast.success("Signup successful. Please login.");
       navigate("/login");
     } catch (err) {
-      toast.error(err.response?.data?.message || "Signup failed");
+      console.error("SIGNUP ERROR:", err.response || err);
+      toast.error(
+        err.response?.data?.message ||
+          "Signup failed. Try with a new email."
+      );
     }
   };
 

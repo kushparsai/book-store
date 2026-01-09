@@ -12,25 +12,26 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 4001;
 
-app.use(cors());
+// 🔥 VERY IMPORTANT – allow EVERYTHING for debug
+app.use(cors({
+  origin: "*",
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+}));
+
+// 🔥 handle preflight
+app.options("*", cors());
+
 app.use(express.json());
 
-// Routes
 app.use("/api", messageRoute);
 app.use("/book", bookRoute);
 app.use("/user", userRoute);
-app.use(
-  cors({
-    origin: [
-      "https://kushparsai.github.io",
-      "http://localhost:5173"
-    ],
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-    credentials: false,
-  })
-);
 
+// 🔥 test route
+app.get("/health", (req, res) => {
+  res.json({ status: "OK" });
+});
 
 mongoose
   .connect(process.env.MONGO_URI)

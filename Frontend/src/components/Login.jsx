@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import api from "../api/axios"; // ✅ NEW
+import api from "../api/axios";
 import bgImage from "/image25.jpg";
 
 function Login() {
@@ -11,12 +11,17 @@ function Login() {
 
   const onSubmit = async (data) => {
     try {
-      const res = await api.post("/user/login", data); // ✅ FIXED
+      const res = await api.post("/user/login", data);
+
       localStorage.setItem("Users", JSON.stringify(res.data.user));
       toast.success("Login successful");
       navigate("/");
     } catch (err) {
-      toast.error(err.response?.data?.message || "Login failed");
+      console.error("LOGIN ERROR:", err.response || err);
+      toast.error(
+        err.response?.data?.message ||
+          "Login failed. Check email or password."
+      );
     }
   };
 

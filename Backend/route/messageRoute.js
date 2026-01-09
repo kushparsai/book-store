@@ -1,13 +1,20 @@
 import express from "express";
-import nodemailer from "nodemailer";
-import Message from "../model/Message.js";
+import Message from "../model/message.model.js";
 
 const router = express.Router();
 
-router.post("/messages", async (req, res) => {
-  const { name, email, message } = req.body;
-
+router.post("/message", async (req, res) => {
   try {
+    console.log("CONTACT BODY 👉", req.body);
+
+    const { name, email, message } = req.body;
+
+    if (!name || !email || !message) {
+      return res.status(400).json({
+        message: "All fields are required",
+      });
+    }
+
     const newMessage = new Message({
       name,
       email,
@@ -16,40 +23,13 @@ router.post("/messages", async (req, res) => {
 
     await newMessage.save();
 
-    const transporter = nodemailer.createTransport({
-      host: "smtp.gmail.com",
-      port: 587,
-      secure: false,
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-      },
-    });
-
-    await transporter.verify();
-
-    await transporter.sendMail({
-      from: `"BookVillage Contact" <${process.env.EMAIL_USER}>`,
-      to: process.env.EMAIL_USER,
-      subject: "📩 New Contact Message",
-      html: `
-        <h2>New Contact Message</h2>
-        <p><b>Name:</b> ${name}</p>
-        <p><b>Email:</b> ${email}</p>
-        <p><b>Message:</b></p>
-        <p>${message}</p>
-      `,
-    });
-
     res.status(201).json({
-      success: true,
-      message: "Message saved & email sent",
+      message: "Message sent successfully",
     });
   } catch (error) {
-    console.error("❌ ERROR:", error);
+    console.error("CONTACT SERVER ERROR 👉", error);
     res.status(500).json({
-      success: false,
-      error: "Message not sent",
+      message: "Server error while sending message",
     });
   }
 });

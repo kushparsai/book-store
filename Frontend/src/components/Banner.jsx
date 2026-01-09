@@ -39,7 +39,7 @@ Explore thousands of books across engineering, technology, business, fiction, an
     duration-300
     shadow-lg
     hover:scale-105"
-            onClick={() => navigate("/signup")}
+            onClick={() => navigate("/course")}
           >
             Get Started
           </button>

@@ -1,6 +1,7 @@
-import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import api from "../api/axios"; // ✅ axios instance
 
 function Contact() {
   const navigate = useNavigate();
@@ -16,21 +17,22 @@ function Contact() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const res = await axios.post(
-        "http://localhost:4001/api/messages",
-        formData
-      );
 
-      if (res.data.success) {
-        alert(`✅ Thanks ${formData.name}! Your message has been sent.`);
-        setFormData({ name: "", email: "", message: "" });
-        setTimeout(() => navigate("/"), 1500);
-      } else {
-        alert("❌ Failed to send message.");
-      }
+    try {
+      const res = await api.post("/api/message", formData); // ✅ FIXED
+
+      toast.success(res.data.message || "Message sent successfully");
+
+      setFormData({ name: "", email: "", message: "" });
+
+      setTimeout(() => navigate("/"), 1500);
     } catch (err) {
-      alert("⚠️ Server error! Try again later.");
+      console.error("CONTACT ERROR 👉", err.response || err);
+
+      toast.error(
+        err.response?.data?.message ||
+          "Server error. Please try again later."
+      );
     }
   };
 
@@ -66,7 +68,6 @@ function Contact() {
             Send a Message
           </h2>
 
-          {/* NAME */}
           <div className="form-control mb-4">
             <label className="label dark:text-white">Your Name</label>
             <input
@@ -75,16 +76,10 @@ function Contact() {
               value={formData.name}
               onChange={handleChange}
               required
-              className="
-                input input-bordered w-full
-                bg-white text-black
-                dark:bg-slate-700 dark:text-white
-                dark:placeholder-gray-300
-              "
+              className="input input-bordered w-full bg-white text-black dark:bg-slate-700 dark:text-white"
             />
           </div>
 
-          {/* EMAIL */}
           <div className="form-control mb-4">
             <label className="label dark:text-white">Your Email</label>
             <input
@@ -93,16 +88,10 @@ function Contact() {
               value={formData.email}
               onChange={handleChange}
               required
-              className="
-                input input-bordered w-full
-                bg-white text-black
-                dark:bg-slate-700 dark:text-white
-                dark:placeholder-gray-300
-              "
+              className="input input-bordered w-full bg-white text-black dark:bg-slate-700 dark:text-white"
             />
           </div>
 
-          {/* MESSAGE */}
           <div className="form-control mb-4">
             <label className="label dark:text-white">Message</label>
             <textarea
@@ -111,12 +100,7 @@ function Contact() {
               onChange={handleChange}
               required
               rows="4"
-              className="
-                textarea textarea-bordered w-full
-                bg-white text-black
-                dark:bg-slate-700 dark:text-white
-                dark:placeholder-gray-300
-              "
+              className="textarea textarea-bordered w-full bg-white text-black dark:bg-slate-700 dark:text-white"
             />
           </div>
 
